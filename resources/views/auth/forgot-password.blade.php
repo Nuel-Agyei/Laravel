@@ -1,4 +1,5 @@
 <x-guest-layout>
+    <script src="https://cdn.tailwindcss.com"></script>
     <div class="mb-4 text-sm text-gray-600">
         {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
     </div>
@@ -8,6 +9,16 @@
 
     <form method="POST" action="{{ route('password.email') }}">
         @csrf
+
+        @if ($errors->has('email'))
+        <div class="bg-red-100 border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <ul>
+                @if ($errors->has('email'))
+                    <li>{{$errors->first('email')}}</li>
+                @endif
+            </ul>
+        </div>
+    @endif
 
         <!-- Email Address -->
         <div>

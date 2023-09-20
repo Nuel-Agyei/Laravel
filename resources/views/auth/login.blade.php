@@ -1,14 +1,29 @@
 <x-guest-layout>
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
+
+
+        @if ($errors->has('email') || $errors->has('password'))
+            <div class="bg-red-100 border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <ul>
+                    @if ($errors->has('email'))
+                        <li>{{$errors->first('email')}}</li>
+                    @endif
+                    @if ($errors->has('password'))
+                        <li>{{$errors->first('password')}}</li>
+                    @endif
+                </ul>
+            </div>
+        @endif
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="{{old('email')}}" required autofocus autocomplete="username" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
