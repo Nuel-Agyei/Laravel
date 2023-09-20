@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
             'password'=>Hash::make('password')
         ]);
 
-
+        $name = User::all();
         //admin seeding
         User::create([
             'name'=>'User',
